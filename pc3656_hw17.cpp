@@ -124,30 +124,47 @@ public:
     int height() const { return root -> height(); }
 };
 
+//Double Counter Clockwise Rotation, towards the left.
 template <class T>
 void RBT<T>::doubleCCR(RBTNode<T> *&point) {
     singleCR(point -> right);
     singleCCR(point);
 }
 
+//Double clocwise rotation, towards the right.
 template <class T>
 void RBT<T>::doubleCR(RBTNode<T> *&point) {
     singleCCR(point -> left);
     singleCR(point);
 }
 
+//Single clocwise rotation, towards the right
 template <class T>
 void RBT<T>::singleCR(RBTNode<T> *&point) {
     RBTNode<T> *grandparent = point;
     RBTNode<T> *parent = point -> left;
     // TODO: ADD ROTATION CODE HERE
+    if(parrent == nullptr) {
+        //Nothing to rotate here.
+        return;
+    }
+    grandparent -> left = parent -> right; 
+    parent -> right = grandparent;
+    point = parent;
 }
 
+//Single counter clocwise rotation, towards the left
 template <class T>
 void RBT<T>::singleCCR(RBTNode<T> *&point) {
     RBTNode<T> *grandparent = point;
     RBTNode<T> *parent = point -> right;
     // TODO: ADD ROTATION CODE HERE
+    if(parent == nullptr) {
+        return;
+    }
+    grandparent -> right = parent -> left;
+    parent -> left = grandparent;
+    point = parent;
 }
 
 template <class T>
