@@ -167,6 +167,12 @@ void RBT<T>::singleCCR(RBTNode<T> *&point) {
     point = parent;
 }
 
+//4 scenarios:
+//1: point = root -> color black
+//2: uncle of point = red -> recolor
+//3: uncle of point = black in a triangle pattern -> rotate point's parent
+//4: uncle of point = black in a line patter -> rotate point's parent
+
 template <class T>
 void RBT<T>::insert(const T &toInsert, RBTNode<T> *&point, RBTNode<T> *parent) {
     if (point == nullptr) {               // leaf location is found so insert node
@@ -176,6 +182,14 @@ void RBT<T>::insert(const T &toInsert, RBTNode<T> *&point, RBTNode<T> *parent) {
 
         RBTNode<T> *curr_node = point; // curr_node will be set appropriately when walking up the tree
         // TODO: ADD RBT RULES HERE
+        //The node is RED by default.
+        //Scenario 1: root is null.
+        if(curr_node == nullptr) {
+            point -> color = BLACK;
+            root = point;
+            return;
+        }
+
     } else if (toInsert < point -> data) { // recurse down the tree to left to find correct leaf location
         insert(toInsert, point -> left, point);
     } else { // recurse down the tree to right to find correct leaf location
